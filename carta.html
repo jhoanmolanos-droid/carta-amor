@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Para ti</title>
+<style>
+  :root {
+    --vino: #8f244d;
+    --rosa: #d6336c;
+    --rosa-claro: #fff5f7;
+    --texto: #542635;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0; min-height: 100vh; display: flex; justify-content: center;
+    align-items: center; position: relative; overflow: hidden;
+    background:
+      radial-gradient(circle at 15% 15%, rgba(255,255,255,.8) 0 7%, transparent 28%),
+      radial-gradient(circle at 85% 85%, rgba(255,194,211,.55) 0 5%, transparent 30%),
+      linear-gradient(135deg, #ffe9ef 0%, #fff7f8 48%, #ffdce6 100%);
+    font-family: Georgia, "Times New Roman", serif;
+    color: var(--texto); padding: 24px;
+  }
+
+  body::before,
+  body::after {
+    content: "♥";
+    position: fixed;
+    color: rgba(214, 51, 108, .16);
+    font-size: 8rem;
+    pointer-events: none;
+    animation: flotar 5s ease-in-out infinite;
+  }
+
+  body::before { top: 5%; left: 7%; transform: rotate(-15deg); }
+  body::after {
+    right: 7%; bottom: 3%; font-size: 6rem;
+    animation-delay: -2s; transform: rotate(15deg);
+  }
+
+  .carta {
+    position: relative; width: min(100%, 650px); padding: 42px 46px;
+    border: 1px solid rgba(214, 51, 108, .16); border-radius: 24px;
+    background: rgba(255, 255, 255, .9);
+    box-shadow: 0 24px 70px rgba(143, 36, 77, .18), 0 4px 14px rgba(143, 36, 77, .08);
+    backdrop-filter: blur(8px);
+    animation: aparecer .8s ease-out both;
+  }
+
+  .carta::before {
+    content: "♡";
+    position: absolute; top: 14px; right: 22px;
+    color: rgba(214, 51, 108, .3); font-size: 2rem;
+  }
+
+  .carta::after {
+    content: "";
+    position: absolute; top: 20px; left: 50%;
+    width: 70px; height: 3px; border-radius: 99px;
+    background: linear-gradient(90deg, transparent, var(--rosa), transparent);
+    transform: translateX(-50%);
+  }
+
+  h1 {
+    margin: 8px 0 10px; text-align: center; color: var(--rosa);
+    font-size: clamp(1.7rem, 5vw, 2.25rem); line-height: 1.15;
+    text-transform: capitalize; letter-spacing: .02em;
+  }
+
+  .meta {
+    margin-bottom: 28px; text-align: center; font-style: italic;
+    font-size: .92rem; color: #966071;
+  }
+
+  .texto {
+    margin: 0; line-height: 1.85; font-size: 1.05rem;
+    text-align: justify; white-space: pre-line;
+  }
+
+  h3 {
+    display: flex; align-items: center; gap: 12px; margin: 30px 0 14px;
+    color: var(--vino); font-size: 1.08rem;
+  }
+
+  h3::after {
+    content: ""; height: 1px; flex: 1;
+    background: linear-gradient(90deg, rgba(214,51,108,.35), transparent);
+  }
+
+  ul { margin: 0; padding: 0; list-style: none; }
+
+  li {
+    position: relative; margin: 9px 0; padding-left: 26px;
+    color: #693547; line-height: 1.45;
+  }
+
+  li::before {
+    content: "♥"; position: absolute; left: 0; top: 0;
+    color: var(--rosa); font-size: .9rem;
+  }
+
+  .firma {
+    margin: 32px 0 0; color: var(--vino); font-style: italic;
+    font-size: 1.05rem; text-align: right;
+  }
+
+  @keyframes aparecer {
+    from { opacity: 0; transform: translateY(18px) scale(.98); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+  }
+
+  @keyframes flotar {
+    0%, 100% { translate: 0 0; }
+    50% { translate: 0 -12px; }
+  }
+
+  @media (max-width: 520px) {
+    body { padding: 14px; }
+    .carta { padding: 36px 24px 28px; border-radius: 20px; }
+    .texto { text-align: left; font-size: 1rem; }
+    body::before { left: -8%; }
+    body::after { right: -5%; }
+  }
+</style>
+</head>
+<body>
+<div class="carta">
+  <h1 id="titulo"></h1>
+  <div class="meta" id="meta"></div>
+  <p class="texto" id="texto"></p>
+  <h3>Cosas que me gustan de ti</h3>
+  <ul id="gustos"></ul>
+  <p class="firma" id="firma"></p>
+</div>
+
+<script>
+  // Estos datos son los mismos que en tu diccionario de Python
+  const carta = {
+    titulo: "el amor de mi vida",
+    autor: "sebastian",
+    dia_publicacion: "2026-11-04",
+    descripcion: "una carta de amor pequeña pero sincera",
+    escrito: "Mi amor, cada dia que pasa, mi corazon late mas fuerte por ti y no puedo esperar para pasar el resto de mi vida a tu lado. eres mi todo y no puedo imaginar un futuro sin ti a mi lado. pero mi amorchis cumplimos 8 meses juntos y quiero que sepas que cada momento contigo es un regalo que atesoro. todos esos dias que hemos compartido, desde nuestras risas hasta nuestro llanto, han sido un viaje maravilloso que me ha enseñado el verdadero significado del amor. gracias por ser mi compañera, mi confidente y mi mejor amiga. te amuuuu mushuuuu tres mil millones, yo se que es poco pero el codigo costo jsjsjsj.",
+    cosas_que_me_gustan_de_ti: [
+      "andar contigo",
+      "besarte",
+      "abrazarte",
+      "ver tus ojos",
+      "escuchar tu voz",
+      "y muchas cosas mas que no caben en esta carta."
+    ]
+  };
+
+  // Llenamos cada parte de la página con los datos
+  document.getElementById("titulo").textContent = carta.titulo;
+  document.getElementById("meta").textContent = carta.descripcion + " · " + carta.dia_publicacion;
+  document.getElementById("texto").textContent = carta.escrito;
+  document.getElementById("firma").textContent = "Atentamente, " + carta.autor + " 💕";
+
+  // Creamos un elemento <li> por cada cosa de la lista
+ const gustos = document.getElementById("gustos");
+for (let index = 0; index < carta.cosas_que_me_gustan_de_ti.length; index++) {
+  const cosa = carta.cosas_que_me_gustan_de_ti[index];
+  const li = document.createElement("li");
+  li.textContent = cosa;
+  gustos.appendChild(li);
+}
+</script>
+</body>
+</html>
